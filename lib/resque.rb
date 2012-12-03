@@ -149,7 +149,7 @@ module Resque
     doc = mongo.find_and_modify( :query => { :queue => queue },
                                  :sort => [:natural, :desc],
                                  :remove => true )
-    decode doc['item']
+    decode doc['item'] if doc
   rescue Mongo::OperationFailure => e
     return nil if e.message =~ /No matching object/
     raise e
